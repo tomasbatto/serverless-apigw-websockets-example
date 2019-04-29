@@ -1,0 +1,20 @@
+{
+  "name": "serverless-apigw-websocekets-example",
+  "version": "1.0.0",
+  "description": "ApiGateway Websockets example, using TypeScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Batto",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.24",
+    "@types/node": "^11.13.8",
+    "aws-sdk": "^2.444.0",
+    "serverless-offline": "^4.9.4",
+    "serverless-plugin-typescript": "^1.1.7",
+    "typescript": "^3.4.5"
+  }
+}
