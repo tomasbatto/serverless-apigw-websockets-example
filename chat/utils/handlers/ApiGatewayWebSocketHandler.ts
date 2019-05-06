@@ -7,21 +7,34 @@ export interface WebSocketAction<Data> {
     data: Data,
     meta: {
         connectionId: string,
-        domain: string
-        stage: string
+        domain: string,
+        stage: string,
+        channel: string,
+        language: string
     }
 }
 
 export default abstract class ApiGatewayWebSocketHandler<D, R> extends ApiGatewayLambdaHandler<WebSocketAction<D>, R>{
     async preProcess(event: APIGatewayEvent, context: APIGatewayEventRequestContext) : Promise<WebSocketAction<D>>{
-        if(event && event.requestContext){
+        console.log(JSON.stringify(event))
+        if(event && event.requestContext ){
             const body = event.body ? JSON.parse(event.body) : {}
+            let channel
+            let language = 'en'
+            if (!event.queryStringParameters || !event.queryStringParameters.channel){
+                channel = body.channel
+            } else {
+                channel = event.queryStringParameters.channel
+                if(event.queryStringParameters.lang) {
+                    language = event.queryStringParameters.lang
+                }
+            }
             const requestContext = event.requestContext
             const connectionId = requestContext.connectionId
             const domain = requestContext.domainName
             const stage = requestContext.stage
             const action = requestContext.routeKey ? requestContext.routeKey.replace('$', '') : ''
-            const webSocketAction = Object.assign(body,{action},{ meta: { connectionId, domain, stage }})
+            const webSocketAction = Object.assign(body,{action},{ meta: { connectionId, domain, stage, channel, language}})
             return webSocketAction as WebSocketAction<any>
         } else {
             return {} as WebSocketAction<any>
@@ -29,13 +42,20 @@ export default abstract class ApiGatewayWebSocketHandler<D, R> extends ApiGatewa
     }
 
     async sendMessageToClient (url: string, connectionId: string, payload: any) : Promise<any> {
-        console.log(url, connectionId, JSON.stringify(payload))
         const apigatewaymanagementapi = new ApiGatewayManagementApi({apiVersion: '2029', endpoint: url});
-        await apigatewaymanagementapi.postToConnection({
-            ConnectionId: connectionId, // connectionId of the receiving ws-client
-            Data: JSON.stringify(payload)
-        }).promise()
-        console.log('Sent')
+        try {
+            await apigatewaymanagementapi.postToConnection({
+                ConnectionId: connectionId, // connectionId of the receiving ws-client
+                Data: JSON.stringify(payload)
+            }).promise()
+        } catch (e) {
+            if(e.message === "410") {
+                console.log(e.message)
+                return
+            } else {
+                throw e
+            }
+        }
         return
     }
 }

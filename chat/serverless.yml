@@ -40,6 +40,10 @@ provider:
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
       Resource: "arn:aws:dynamodb:us-east-1:*:*"
+    - Effect: Allow
+      Action: # Gives permission to AWS Translate
+        - translate:TranslateText
+      Resource: "*"
 
 # you can overwrite defaults here
 #  stage: dev
