@@ -72,6 +72,7 @@ form.onsubmit = (ev) => {
             data: { message: text, username: name }
         }
         socketClient.send(JSON.stringify(message))
+        input.value = ""
     }
     return false
 }
