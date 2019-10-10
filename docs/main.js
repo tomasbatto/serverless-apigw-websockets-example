@@ -16,7 +16,7 @@ if(search.length) {
 }
 window.history.replaceState( {} , 'Live Chat Translation',  url + `?channel=${channel}`);
 
-const websocketUrl = `wss://40sykmtv5d.execute-api.us-east-1.amazonaws.com/dev?channel=${channel}&lang=`
+const websocketUrl = `wss://ayrvy4swlh.execute-api.us-east-1.amazonaws.com/dev?channel=${channel}&lang=`
 let socketClient = new WebSocket(`${websocketUrl}en`);
 
 const createNewMessageHtml = (username, message) => {
