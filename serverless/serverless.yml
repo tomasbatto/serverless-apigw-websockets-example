@@ -29,7 +29,13 @@ provider:
   versionFunctions: false
   websocketsApiName: serverless-websocket-example
   websocketsApiRouteSelectionExpression: $request.body.action
-  iamRoleStatements: # permissions for all of your functions can be set here
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - "execute-api:ManageConnections"
+      Resource:
+        - "arn:aws:execute-api:*:*:**/@connections/*"
+     # permissions for all of your functions can be set here
     - Effect: Allow
       Action: # Gives permission to DynamoDB tables in a specific region
         - dynamodb:DescribeTable
