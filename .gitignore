@@ -7,4 +7,5 @@ jspm_packages
 
 .idea
 
+serverless/.build
 .DS_Store
