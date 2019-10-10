@@ -108,7 +108,7 @@ class MessageHandler extends ApiGatewayWebSocketHandler<any, String> {
     switch (event.action){
       case 'message':
       default:
-        await this.sendToChannel(event,{from: event.meta.connectionId, message: event.data.message})
+        await this.sendToChannel(event,{from: event.meta.connectionId, username: event.data.username, message: event.data.message})
         return "OK"
     }
   }

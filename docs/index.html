@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <title>Live Chat Translation</title>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Live Translated Chat
+                </h1>
+                <h2 class="subtitle">
+                    Serverless ApiGateway Websockets Example
+                </h2>
+            </div>
+        </div>
+        <div class="container">
+                <form>
+                    <div class="field is-horizontal">
+                        <div class="control">
+                            <input id="name" class="input is-rounded" type="text" placeholder="Username">
+                        </div>
+                        <div class="control">
+                            <button id="name-button" class="button">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+    </section>
+    <section class="section">
+        <div class="container is-fluid">
+            <article class="media">
+                <div class="media-content">
+                    <form id="send">
+                        <div class="field is-horizontal">
+                            <div class="control has-icons-left">
+                                <div class="select">
+                                <select id="lang">
+                                    <option value="es">ES</option>
+                                    <option value="en" selected="selected">EN</option>
+                                    <option value="ru">RU</option>
+                                    </select>
+                                </div>
+                                <span class="icon is-left">
+                                    <i class="fas fa-globe"></i>
+                                </span>
+                            </div>
+                            <input class="input is-rounded" id="text" type="text" placeholder="Send message">
+                            <p class="control">
+                                <input id="send-message" class="button" type="submit" value="Send" disabled/>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </article>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <div id="chat-room"></div>
+        </div>        
+    </section>
+    <script src="main.js" type="text/javascript"></script>
+</body>
+</html>
